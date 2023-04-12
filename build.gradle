@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.2'
+    /*
+    Spring 相依管理plugin，可排除不要的相依。
+    https://docs.spring.io/dependency-management-plugin/docs/current-SNAPSHOT/reference/html/
+     */
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    id "io.freefair.lombok" version "6.0.0-m2"
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //spring-boot
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    
+    //JDBC
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.20'
+    
+//    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+    
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    testImplementation ('org.springframework.boot:spring-boot-starter-test') {
+//        exclude group: 'junit', module: 'junit' // 排除JUnit 4的依賴
+    }
+
+    // JUnit 5 依賴設定
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api' // JUnit 5 API 介面
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine' // JUnit 5 測試框架的實作
+
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty("spring.profiles.active", System.getProperty("spring.profiles.active"))
+}

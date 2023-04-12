@@ -1,0 +1,21 @@
+spring:
+    jackson:
+        default-property-inclusion: non_empty #https://stackoverflow.com/questions/67379229/exclude-null-properties-from-spring-boot-rest-controllers
+    datasource:
+        url: jdbc:postgresql://localhost:5432/test?socketTimeout=120
+        hikari:
+            username: test
+            password: test
+            schema: public
+    jpa:
+        hibernate:
+            ddl-auto: create
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        show-sql: true        
+        open-in-view: false
+    devtools:
+        livereload:
+            enabled: false
+logging:
+    level:
+        web: debug
